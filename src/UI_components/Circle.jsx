@@ -1,7 +1,7 @@
 function Circle() {
     return (
         <div className="Ghost">
-            <p>Ghost</p>
+            <img src="/src/assets/ghost1.png" />
         </div>
     )
 }
