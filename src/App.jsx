@@ -11,7 +11,7 @@ function App() {
   const [player, setPlayer] = useState()
   const [circles, setCircles] = useState([])
   const [score, setScore] = useState(0)
-  const [gameLaunch, setGameLaunch] = useState(false)
+  const [gameLaunch, setGameLaunch] = useState(true)
   const [gameOn, setGameOn] = useState(false)
   const [gameOver, setGameOver] = useState(false)
 
