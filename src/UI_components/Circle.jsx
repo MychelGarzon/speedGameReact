@@ -1,7 +1,7 @@
-function Circle() {
+function Circle({ clickHandler, id }) {
     return (
-        <div className="Ghost">
-            <img src="/src/assets/ghost1.png" />
+        <div className="circle" onClick={() => { clickHandler(id) }}>
+            <img src="/src/assets/ghost3.png" />
         </div>
     )
 }
