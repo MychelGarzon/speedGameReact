@@ -1,7 +1,8 @@
-function Circle({ clickHandler, id }) {
+function Circle({ clickHandler, id, current }) {
     return (
-        <div className="circle" onClick={() => { clickHandler(id) }}>
-            <img src="/src/assets/ghost3.png" />
+        <div
+            className={`circle ${current ? 'active' : ''}`}
+            onClick={() => { clickHandler(id) }}>
         </div>
     )
 }

@@ -6,7 +6,8 @@ export const levels = [
     },
     {
         id: 2,
-        name: 'medium', amount: 5
+        name: 'medium',
+        amount: 5
     },
     {
         id: 3,
