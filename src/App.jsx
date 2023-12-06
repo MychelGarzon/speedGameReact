@@ -3,6 +3,7 @@ import { levels } from "./levels"
 import NewGame from "./components/NewGame"
 import GameOver from "./components/GameOver.jsx"
 import Game from "./components/Game"
+import Sound from "./assets/sound.mp3"
 
 const getRandNumb = (min, max) =>
   Math.floor(Math.random() * (max - min)) + min;
@@ -15,10 +16,22 @@ function App() {
   const [gameOn, setGameOn] = useState(false)
   const [gameOver, setGameOver] = useState(false)
   const [current, setCurrent] = useState(0)
+  const sound = useRef(new Audio(Sound));
+  const randomMessages = [
+    "Great job!",
+    "Keep it up!",
+    "You're doing well!",
+    "Fantastic!",
+  ];
+
+
   const timeoutIdRef = useRef(null);
+  const rounds = useRef(0);
+  const currentInst = useRef(0);
 
   let pace = 1000;
   let levelsAmount;
+
 
   const gameSetHandler = (level, name) => {
     /* const levelIndex = levels.findIndex((el) => el.name === level);
@@ -28,29 +41,36 @@ function App() {
     levelsAmount = amount
     const circlesArray = Array.from({ length: levelsAmount }, (_, i) => i);
 
-
     setCircles(circlesArray)
     setPlayer({
       level: level,
       name: name
     })
 
+    rounds.current--;
     setGameLaunch((previousLaunch) => !previousLaunch);
     setGameOn(!gameOn);
+    sound.current.play();
     randomNumber();
   }
 
+
   const stopHandler = () => {
-    setGameOn(!gameOn)
-    setGameOver(!gameOver)
+
+    setGameOn((previousLaunch) => !previousLaunch)
+    setGameOver((previousLaunch) => !previousLaunch)
     clearTimeout(timeoutIdRef.current);
+    timeoutIdRef.current = null;
+    sound.current.pause();
+
   }
 
   const closingHandler = () => {
-    setGameOver(!gameOver)
-    setGameLaunch(!gameLaunch)
+    setGameOver((previousLaunch) => !previousLaunch)
+    setGameLaunch((previousLaunch) => !previousLaunch)
     setScore(0)
   }
+
 
   const clickHandler = (id) => {
     if (current !== id) {
@@ -58,23 +78,27 @@ function App() {
       return;
     }
     setScore(score + 10)
-
+    rounds.current--;
   }
 
   const randomNumber = () => {
+    if (rounds.current >= 3) {
+      stopHandler();
+      return;
+    }
     let nextActive;
 
     do {
       nextActive = getRandNumb(0, levelsAmount);
-    } while (nextActive === current);
+    } while (nextActive === currentInst.current);
 
     setCurrent(nextActive);
-
+    currentInst.current = nextActive;
+    rounds.current++;
     timeoutIdRef.current = setTimeout(randomNumber, pace);
-    console.log(nextActive);
+    pace *= 0.95;
+
   };
-
-
 
 
   return (
@@ -87,8 +111,14 @@ function App() {
         clickHandler={clickHandler}
         current={current}
       />}
-      {gameOver && <GameOver closingHandler={closingHandler} {...player} score={score} />}
-      <footer>Mychel Garzon @copyright 2023</footer>
+      {gameOver &&
+        <GameOver
+          closingHandler={closingHandler}
+          {...player}
+          score={score}
+        />}<div className="footer">
+        <footer>Mychel Garzon @copyright 2023</footer>
+      </div>
     </>
   );
 }
@@ -96,16 +126,3 @@ function App() {
 export default App;
 
 
-/** 
- * function App(){
- * const timeoutIdRef= useRef(null);
- * 
- * function randomNumber(){
- * timeoutIdRef.current = setTimeout(randomNumber, pace);
- * }
- * 
- * function stopHandler(){
- * clearTimeout(timeoutIdRef.current);
- * timeoutIdRef.current = null;
- * }
- *  */

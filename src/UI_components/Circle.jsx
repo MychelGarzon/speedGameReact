@@ -9,6 +9,3 @@ function Circle({ clickHandler, id, current }) {
 
 export default Circle;
 
-/*
-Ghost
-*/

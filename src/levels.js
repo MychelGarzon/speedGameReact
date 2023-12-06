@@ -12,7 +12,7 @@ export const levels = [
     {
         id: 3,
         name: 'hard',
-        amount: 7
+        amount: 6
     }
 ]
 
