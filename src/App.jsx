@@ -17,13 +17,6 @@ function App() {
   const [gameOver, setGameOver] = useState(false)
   const [current, setCurrent] = useState(0)
   const sound = useRef(new Audio(Sound));
-  const randomMessages = [
-    "Great job!",
-    "Keep it up!",
-    "You're doing well!",
-    "Fantastic!",
-  ];
-
 
   const timeoutIdRef = useRef(null);
   const rounds = useRef(0);
@@ -34,31 +27,27 @@ function App() {
 
 
   const gameSetHandler = (level, name) => {
-    /* const levelIndex = levels.findIndex((el) => el.name === level);
-    const levelAmount = levels[levelIndex].amount;*/
-
     const { amount } = levels.find(el => el.name === level)
-    levelsAmount = amount
+    levelsAmount = amount;
     const circlesArray = Array.from({ length: levelsAmount }, (_, i) => i);
 
     setCircles(circlesArray)
     setPlayer({
       level: level,
       name: name
-    })
-
-    rounds.current--;
+    });
     setGameLaunch((previousLaunch) => !previousLaunch);
     setGameOn(!gameOn);
     sound.current.play();
     randomNumber();
-  }
+  };
 
 
   const stopHandler = () => {
 
     setGameOn((previousLaunch) => !previousLaunch)
     setGameOver((previousLaunch) => !previousLaunch)
+    rounds.current = 0;
     clearTimeout(timeoutIdRef.current);
     timeoutIdRef.current = null;
     sound.current.pause();
@@ -70,7 +59,6 @@ function App() {
     setGameLaunch((previousLaunch) => !previousLaunch)
     setScore(0)
   }
-
 
   const clickHandler = (id) => {
     if (current !== id) {

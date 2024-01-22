@@ -161,6 +161,7 @@ footer {
 
 .gameOverContainer {
   text-align: center;
+  text-transform: capitalize;
 }
 .gameOverContainer h2,
 h3,
@@ -173,13 +174,12 @@ p {
   top: 0.2em;
 }
 
-/*
 .circle {
   background-size: cover;
   background-image: url('./media/ghost3.png');
 }
 
- .circles #ghost2 {
+.circles #ghost2 {
   filter: hue-rotate(-120deg);
 }
 .circles #ghost3 {
@@ -188,4 +188,3 @@ p {
 .circles #ghost4 {
   filter: hue-rotate(160deg);
 }
-*/
